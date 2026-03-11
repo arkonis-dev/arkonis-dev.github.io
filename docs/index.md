@@ -1,0 +1,27 @@
+---
+title: Overview
+nav_order: 1
+---
+
+# agent-operator
+
+agent-operator is a Kubernetes operator that introduces AI agents as first-class cluster resources. Instead of managing containers, you manage LLM-based agents — each defined by a model, a system prompt, and a set of MCP servers that provide tools. The operator handles scheduling, scaling, health checking, and lifecycle management using the same reconciliation model as any other Kubernetes controller.
+
+Everything integrates with the Kubernetes ecosystem you already use. GitOps workflows, RBAC, namespaces, and `kubectl` all work without modification. Promoting a new system prompt is a pull request; rolling it back is `git revert`.
+
+## CRDs
+
+| Resource | Analogy | Description |
+|---|---|---|
+| `AgentDeployment` | `Deployment` | Manages a pool of agent instances running the same model, prompt, and MCP tool servers. Handles scaling and semantic health checks. |
+| `AgentService` | `Service` | Routes incoming tasks to available agent instances using configurable load balancing strategies (round-robin, least-busy, random). |
+| `AgentConfig` | `ConfigMap` | Reusable prompt fragments and model settings. Referenced from `AgentDeployment` via `spec.configRef` to keep configuration DRY. |
+| `AgentPipeline` | *(novel)* | Defines a DAG of agents where outputs feed into inputs. The primitive for declarative multi-agent workflows. |
+
+Short names: `agdep`, `agsvc`, `agcfg`, `agpipe`
+
+## Next steps
+
+- [Getting Started](./getting-started) — install and deploy your first agent
+- [CRD Reference](./crds/) — full field reference for all four resource types
+- [Concepts](./concepts/) — semantic health checks, MCP servers, scaling

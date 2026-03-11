@@ -6,4 +6,4 @@ has_children: true
 
 # Concepts
 
-Deep dives into how agent-operator works.
+Deep dives into how agentops-operator works.

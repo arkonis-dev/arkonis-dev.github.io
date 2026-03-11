@@ -14,7 +14,7 @@ nav_order: 2
 For local development, create a cluster first:
 
 ```bash
-kind create cluster --name agent-operator-dev
+kind create cluster --name agentops-operator-dev
 ```
 
 ## Install
@@ -22,17 +22,17 @@ kind create cluster --name agent-operator-dev
 ### 1. Install the operator
 
 ```bash
-kubectl apply -f https://github.com/agentops-io/agent-operator/releases/latest/download/install.yaml
+kubectl apply -f https://github.com/agentops-io/agentops-operator/releases/latest/download/install.yaml
 ```
 
-This installs the CRDs, RBAC, and the operator deployment in the `agent-operator-system` namespace.
+This installs the CRDs, RBAC, and the operator deployment in the `agentops-operator-system` namespace.
 
 ### 2. Deploy Redis
 
-agent-operator uses Redis Streams as the task queue between the operator and agent pods.
+agentops-operator uses Redis Streams as the task queue between the operator and agent pods.
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/agentops-io/agent-operator/main/config/prereqs/redis.yaml
+kubectl apply -f https://raw.githubusercontent.com/agentops-io/agentops-operator/main/config/prereqs/redis.yaml
 ```
 
 ### 3. Create the API key secret
@@ -40,7 +40,7 @@ kubectl apply -f https://raw.githubusercontent.com/agentops-io/agent-operator/ma
 Create one secret per namespace where agents will run:
 
 ```bash
-kubectl create secret generic agent-operator-api-keys \
+kubectl create secret generic agentops-operator-api-keys \
   --from-literal=ANTHROPIC_API_KEY=sk-ant-... \
   --from-literal=TASK_QUEUE_URL=redis.agent-infra.svc.cluster.local:6379
 ```
@@ -48,7 +48,7 @@ kubectl create secret generic agent-operator-api-keys \
 ### 4. Deploy your first agent
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/agentops-io/agent-operator/main/config/samples/agentops_v1alpha1_agentdeployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/agentops-io/agentops-operator/main/config/samples/agentops_v1alpha1_agentdeployment.yaml
 ```
 
 ## Verify

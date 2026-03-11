@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>agent-operator — Kubernetes-native AI agent infrastructure</title>
+  <title>agentops-operator — Kubernetes-native AI agent infrastructure</title>
   <meta name="description" content="Deploy, scale, and manage LLM agents the same way you manage any other Kubernetes workload." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,11 +13,11 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <span class="logo">agent-operator</span>
+      <span class="logo">agentops-operator</span>
       <nav>
         <a href="#concepts">Concepts</a>
         <a href="#how-it-works">How it works</a>
-        <a href="https://github.com/agentops-io/agent-operator" class="btn-outline" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/agentops-io/agentops-operator" class="btn-outline" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
   </header>
@@ -45,7 +45,7 @@ research-agent    claude-sonnet-4-20250514   5          5       2m</span></code>
 
         <div class="hero-cta">
           <a href="https://agentops-io.com/docs/getting-started" class="btn-primary" target="_blank" rel="noopener">Get started</a>
-          <a href="https://github.com/agentops-io/agent-operator" class="btn-ghost" target="_blank" rel="noopener">View on GitHub →</a>
+          <a href="https://github.com/agentops-io/agentops-operator" class="btn-ghost" target="_blank" rel="noopener">View on GitHub →</a>
         </div>
       </div>
     </section>
@@ -80,7 +80,7 @@ research-agent    claude-sonnet-4-20250514   5          5       2m</span></code>
     <section class="concepts" id="concepts">
       <div class="container">
         <h2>First-class primitives for agents</h2>
-        <p class="section-sub">agent-operator extends the Kubernetes API with four new resource types.</p>
+        <p class="section-sub">agentops-operator extends the Kubernetes API with four new resource types.</p>
 
         <div class="concepts-grid">
           <div class="concept-card">
@@ -156,7 +156,7 @@ research-agent    claude-sonnet-4-20250514   5          5       2m</span></code>
             <div class="step-num">2</div>
             <div class="step-body">
               <h3>The operator reconciles</h3>
-              <p>agent-operator watches for changes and ensures the actual state matches your desired state — creating pods, injecting config, and wiring the task queue.</p>
+              <p>agentops-operator watches for changes and ensures the actual state matches your desired state — creating pods, injecting config, and wiring the task queue.</p>
             </div>
           </div>
           <div class="step">
@@ -184,7 +184,7 @@ research-agent    claude-sonnet-4-20250514   5          5       2m</span></code>
           <div class="feature-text">
             <h2>Semantic health checks</h2>
             <p>Standard liveness probes check whether a process is running. That's not enough for agents — an agent can be running fine while consistently producing wrong output.</p>
-            <p>agent-operator introduces semantic readiness probes that periodically send a validation prompt to the agent and verify the response. Kubernetes stops routing tasks to agents that fail the check.</p>
+            <p>agentops-operator introduces semantic readiness probes that periodically send a validation prompt to the agent and verify the response. Kubernetes stops routing tasks to agents that fail the check.</p>
           </div>
           <div class="feature-code">
             <pre><code><span class="yaml-key">livenessProbe:</span>
@@ -217,10 +217,10 @@ research-agent    claude-sonnet-4-20250514   5          5       2m</span></code>
 
   <footer class="site-footer">
     <div class="container">
-      <span>agent-operator · Apache 2.0</span>
+      <span>agentops-operator · Apache 2.0</span>
       <nav>
-        <a href="https://github.com/agentops-io/agent-operator" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/agentops-io/agent-operator/issues" target="_blank" rel="noopener">Issues</a>
+        <a href="https://github.com/agentops-io/agentops-operator" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/agentops-io/agentops-operator/issues" target="_blank" rel="noopener">Issues</a>
       </nav>
     </div>
   </footer>

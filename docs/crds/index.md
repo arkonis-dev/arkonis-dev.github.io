@@ -6,4 +6,4 @@ has_children: true
 
 # CRD Reference
 
-Full field reference for all agent-operator resource types.
+Full field reference for all agentops-operator resource types.

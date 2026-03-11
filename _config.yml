@@ -15,5 +15,4 @@ aux_links:
 footer_content: "Apache 2.0 · agentops-io"
 
 exclude:
-  - index.html
-  - style.css
+  - README.md

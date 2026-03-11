@@ -247,7 +247,7 @@ code { font-family: var(--font-mono); font-size: 0.875em; }
 }
 .concepts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 .concept-card {

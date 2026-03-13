@@ -1,6 +1,7 @@
 title: agentops-operator
 description: Kubernetes-native AI agent infrastructure
 url: https://agentops-io.com
+logo: https://agentops-io.com/logo.png
 
 remote_theme: just-the-docs/just-the-docs@v0.10.0
 

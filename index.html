@@ -14,7 +14,7 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "ARKONIS",
-    "url": "https://arkonis.dev",
+    "url": "https://arkonis.dev"
   }
   </script>
   <style>
@@ -105,7 +105,7 @@
             <span class="code-title">terminal</span>
           </div>
           <pre><code><span class="cmd">$</span> kubectl apply -f research-agent.yaml
-<span class="out">arkondeployment.arkonis.dev/research-agent created</span>
+<span class="out">arkonisdeployment.arkonis.dev/research-agent created</span>
 
 <span class="cmd">$</span> kubectl get aodep
 <span class="out">NAME              MODEL                      REPLICAS   READY   AGE
@@ -233,7 +233,7 @@ research-agent    claude-sonnet-4-20250514   5          5       2m</span></code>
             <p>Routes incoming tasks to available agent instances. Decouples task producers from the agent pool with configurable load balancing strategies.</p>
             <pre class="concept-yaml"><code>spec:
   selector:
-    arkonDeployment: research-agent
+    arkonisDeployment: research-agent
   routing:
     strategy: least-busy
   ports:
@@ -260,10 +260,10 @@ research-agent    claude-sonnet-4-20250514   5          5       2m</span></code>
             <pre class="concept-yaml"><code>spec:
   steps:
     - name: research
-      arkonDeployment: research-agent
+      arkonisDeployment: research-agent
     - name: writer
       dependsOn: [research]
-      arkonDeployment: writer-agent</code></pre>
+      arkonisDeployment: writer-agent</code></pre>
           </div>
 
           <div class="concept-card">

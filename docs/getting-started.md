@@ -6,19 +6,49 @@ nav_order: 2
 
 # Getting Started
 
-## Prerequisites
+## Local development
+
+The fastest way to try agentops-operator is with the `make dev` command. It creates a [kind](https://kind.sigs.k8s.io/) cluster and sets everything up in one step — no manual Redis config, no open terminals.
+
+**Prerequisites:** Docker, kind, kubectl, Go 1.25+
+
+```bash
+git clone https://github.com/agentops-io/agentops-operator.git
+cd agentops-operator
+make dev ANTHROPIC_API_KEY=sk-ant-...
+```
+
+This will:
+1. Create a kind cluster
+2. Build and load both Docker images into the cluster
+3. Install the CRDs
+4. Deploy Redis and the operator inside the cluster
+5. Create the API key secret
+
+When it finishes, deploy your first agent:
+
+```bash
+kubectl apply -f config/samples/agentops_v1alpha1_agentdeployment.yaml
+kubectl get agdep -w
+# NAME             MODEL                      REPLICAS   READY   AGE
+# research-agent   claude-sonnet-4-20250514   2          2       30s
+```
+
+Tear down when done:
+
+```bash
+make dev-down
+```
+
+---
+
+## Production install
+
+### Prerequisites
 
 - Kubernetes 1.31+
 - `kubectl` configured against your cluster
 - An API key for your chosen LLM provider (Anthropic by default)
-
-For local development, create a cluster first:
-
-```bash
-kind create cluster --name agentops-operator-dev
-```
-
-## Install
 
 ### 1. Install the operator
 
@@ -44,10 +74,10 @@ Create one secret per namespace where agents will run. The operator injects the 
 ```bash
 kubectl create secret generic agentops-operator-api-keys \
   --from-literal=ANTHROPIC_API_KEY=sk-ant-... \
-  --from-literal=TASK_QUEUE_URL=redis.default.svc.cluster.local:6379
+  --from-literal=TASK_QUEUE_URL=redis.agent-infra.svc.cluster.local:6379
 ```
 
-`TASK_QUEUE_URL` is always required. The API key name depends on your LLM provider — `ANTHROPIC_API_KEY` for Anthropic (the default). To use a different provider, also add `AGENT_PROVIDER=<name>` to the secret.
+`TASK_QUEUE_URL` is always required. To use a different provider, also add `AGENT_PROVIDER=<name>` to the secret.
 
 ### 4. Deploy your first agent
 

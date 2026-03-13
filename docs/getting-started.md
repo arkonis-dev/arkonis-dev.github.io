@@ -8,7 +8,7 @@ nav_order: 2
 
 ## Prerequisites
 
-- Kubernetes 1.26+
+- Kubernetes 1.31+
 - `kubectl` configured against your cluster
 - An API key for your chosen LLM provider (Anthropic by default)
 

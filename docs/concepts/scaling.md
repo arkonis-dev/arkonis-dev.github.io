@@ -42,8 +42,8 @@ spec:
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `maxTokensPerCall` | int | `4096` | Maximum tokens (input + output) per Anthropic API call. |
-| `maxConcurrentTasks` | int | `1` | Maximum tasks a single agent pod will process simultaneously. |
-| `timeoutSeconds` | int | `60` | Per-task timeout. The agent pod abandons the task and returns an error after this duration. |
+| `maxTokensPerCall` | int | `8000` | Maximum tokens (input + output) per LLM API call. |
+| `maxConcurrentTasks` | int | `5` | Maximum tasks a single agent pod will process simultaneously. |
+| `timeoutSeconds` | int | `120` | Per-task timeout. The agent pod abandons the task and returns an error after this duration. |
 
 These values are injected as environment variables (`AGENT_MAX_TOKENS`, `AGENT_TIMEOUT_SECONDS`) into agent pods and enforced by the agent runtime.

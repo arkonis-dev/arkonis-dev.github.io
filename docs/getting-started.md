@@ -26,7 +26,7 @@ kind create cluster --name agentops-operator-dev
 kubectl apply -f https://github.com/agentops-io/agentops-operator/releases/latest/download/install.yaml
 ```
 
-This installs the CRDs, RBAC, and the operator deployment in the `agentops-operator-system` namespace.
+This installs the CRDs, RBAC, and the operator deployment in the `agentops-system` namespace.
 
 ### 2. Deploy Redis
 
@@ -44,10 +44,10 @@ Create one secret per namespace where agents will run. The operator injects the 
 ```bash
 kubectl create secret generic agentops-operator-api-keys \
   --from-literal=ANTHROPIC_API_KEY=sk-ant-... \
-  --from-literal=TASK_QUEUE_URL=redis.agent-infra.svc.cluster.local:6379
+  --from-literal=TASK_QUEUE_URL=redis.default.svc.cluster.local:6379
 ```
 
-`TASK_QUEUE_URL` is always required regardless of provider. The API key name matches what each provider reads from the environment (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, etc.).
+`TASK_QUEUE_URL` is always required. The API key name depends on your LLM provider — `ANTHROPIC_API_KEY` for Anthropic (the default). To use a different provider, also add `AGENT_PROVIDER=<name>` to the secret.
 
 ### 4. Deploy your first agent
 

@@ -74,5 +74,5 @@ Only pods with a passing `/readyz` check are eligible to receive tasks. Pods tha
 
 | Field | Type | Description |
 |---|---|---|
-| `readyAgents` | int32 | Number of ready agent pods currently receiving tasks. |
+| `readyReplicas` | int32 | Number of ready agent pods currently receiving tasks. |
 | `conditions` | []Condition | Standard Kubernetes conditions. |

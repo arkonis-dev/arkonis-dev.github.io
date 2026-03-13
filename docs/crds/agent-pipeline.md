@@ -81,7 +81,7 @@ Templates are evaluated at runtime by the pipeline controller when each step is 
 | Field | Type | Description |
 |---|---|---|
 | `phase` | string | `Pending`, `Running`, `Succeeded`, `Failed`. |
-| `stepStatuses` | []StepStatus | Per-step status including phase, start time, and completion time. |
+| `steps` | []PipelineStepStatus | Per-step status including phase, task ID, start time, completion time, and output. |
 | `output` | string | Final resolved output value after the pipeline completes. |
 | `conditions` | []Condition | Standard Kubernetes conditions. |
 
@@ -90,7 +90,7 @@ Templates are evaluated at runtime by the pipeline controller when each step is 
 {: .warning }
 AgentPipeline is in early alpha. The following limitations apply in v0.0.1:
 
-- The controller validates the DAG and checks that referenced `AgentDeployment` resources exist, but **does not yet execute steps**. Step execution and output chaining are planned for v1beta1.
-- Parallel step execution (steps with no shared `dependsOn` ancestor) is not yet implemented. Steps will run sequentially.
+- Parallel step execution (steps with no shared `dependsOn` ancestor) is not yet implemented. Steps run in dependency order, one at a time.
 - There is no retry policy for failed steps.
 - Pipeline inputs are currently limited to string values.
+- Requires Redis — `TASK_QUEUE_URL` must be set in the `agentops-operator-api-keys` secret.

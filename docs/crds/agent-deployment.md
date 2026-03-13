@@ -48,7 +48,6 @@ spec:
 | Field | Type | Required | Description |
 |---|---|---|---|
 | `replicas` | int32 | no | Number of agent pod replicas. Defaults to `1`. |
-| `provider` | string | no | LLM provider to use. Defaults to `anthropic`. Set via `AGENT_PROVIDER`. |
 | `model` | string | yes | Model identifier passed to the configured LLM provider (e.g. `claude-sonnet-4-20250514` for Anthropic). |
 | `systemPrompt` | string | yes | System prompt injected into every API call made by agent pods. |
 | `mcpServers` | []MCPServerSpec | no | List of MCP servers to connect at pod startup. See [MCP Servers](../concepts/mcp-servers). |
@@ -67,9 +66,9 @@ spec:
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `maxTokensPerCall` | int | `4096` | Token budget (input + output) per LLM API call. |
-| `maxConcurrentTasks` | int | `1` | Max tasks a single pod processes simultaneously. |
-| `timeoutSeconds` | int | `60` | Per-task timeout. Task is abandoned and an error is returned after this duration. |
+| `maxTokensPerCall` | int | `8000` | Token budget (input + output) per LLM API call. |
+| `maxConcurrentTasks` | int | `5` | Max tasks a single pod processes simultaneously. |
+| `timeoutSeconds` | int | `120` | Per-task timeout. Task is abandoned and an error is returned after this duration. |
 
 ### `livenessProbe`
 

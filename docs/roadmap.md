@@ -30,6 +30,24 @@ Standard health checks tell you if a process is running. Semantic health checks 
 ### Manage agents like any other service
 System prompt changes go through pull requests. Rollbacks are a sync revert in ArgoCD or Flux. RBAC, audit logs, namespaces, and `kubectl` all work without modification.
 
+### Conditional and looping pipelines
+Steps can branch based on what a previous agent returned, or repeat until a quality threshold is met. Declare an `if:` expression to skip a step when a condition is false, or a `loop:` block to repeat until a quality condition is satisfied or a maximum iteration count is reached.
+
+### Supervisor agents that spawn workers dynamically
+Any running agent can enqueue sub-tasks at runtime via the built-in `submit_subtask` tool. The agent submits a prompt, gets back a task ID, and the new task is processed asynchronously by the agent pool — no pre-defined static pipeline required.
+
+### Inline tool definitions
+For simple integrations that do not warrant a full MCP server, declare tools directly in `spec.tools` as HTTP endpoints. The agent calls your URL when the LLM invokes the tool and returns the response to the model. No extra infrastructure required.
+
+### Pipeline-level timeouts
+Set `spec.timeoutSeconds` on any `ArkonisPipeline` to fail the entire pipeline if it hasn't completed within the configured wall-clock limit.
+
+### Token usage visibility and budget enforcement
+Every pipeline step reports how many input and output tokens it consumed. The pipeline status rolls this up into a total. Set `spec.maxTokens` on any `ArkonisPipeline` and the pipeline is automatically failed with reason `BudgetExceeded` if the limit is reached — before the next step runs. Token counts appear as a column in `kubectl get aopipe`.
+
+### Event-driven triggers
+Start agent workflows from external events. Define an `ArkonisTrigger` with a source type of `cron`, `webhook`, or `pipeline-output`. One trigger can fan out to multiple pipelines in parallel. Webhook triggers are authenticated via a per-trigger token stored in a Kubernetes Secret.
+
 ---
 
 ## In progress
@@ -47,20 +65,8 @@ Failed tasks are automatically retried with backoff before being moved to a dead
 
 ## Coming soon
 
-### Human-in-the-loop approvals
+### Human-in-the-loop approvals *(in progress)*
 Insert an approval gate anywhere in a pipeline. Execution pauses, a notification is sent, and the workflow resumes only after a human approves via `kubectl`, a webhook, or a UI. Unapproved tasks can escalate or time out automatically.
-
-### Event-driven triggers
-Start agent workflows from external events: an inbound webhook, a cron schedule, or the output of another pipeline. One event can fan out to multiple pipelines in parallel.
-
-### Supervisor agents that spawn workers dynamically
-A supervisor agent breaks a task at runtime and delegates sub-tasks to specialist agents. The supervisor waits for results and assembles the final output, with no pre-defined static pipeline required.
-
-### Conditional and looping pipelines
-Steps can branch based on what a previous agent returned, or repeat until a quality threshold is met. Useful for research loops, validation workflows, and iterative refinement tasks.
-
-### Inline tool definitions
-For simple integrations that do not warrant a full MCP server, declare tools directly in the agent spec as HTTP endpoints. The agent calls your URL when the tool is invoked and returns the response to the model. No extra infrastructure required.
 
 ### Multi-model support
 Run agents on OpenAI, Google Gemini, or other providers alongside Anthropic. Route tasks to the cheapest or fastest model that meets your quality bar. Mix models within a single pipeline.
@@ -68,8 +74,8 @@ Run agents on OpenAI, Google Gemini, or other providers alongside Anthropic. Rou
 ### LiteLLM integration
 Optional integration with [LiteLLM](https://github.com/BerriAI/litellm) for teams that want cross-provider failover, unified rate limiting, or namespace-level token quotas. The operator injects the proxy endpoint automatically. You get the benefits of a smart LLM proxy without arkonis-operator needing to sit in the call path.
 
-### Cost controls and token budgets
-Track token usage per agent, per namespace, and per team. Set daily token limits and the operator automatically pauses an agent that exceeds its budget and resumes it the next day. No application code changes required.
+### Cost controls and token budgets *(partial — per-run budget enforcement available today)*
+Per-run token budgets are available now via `spec.maxTokens`. Daily limits per agent, per namespace, and per team are planned for a future release.
 
 ---
 

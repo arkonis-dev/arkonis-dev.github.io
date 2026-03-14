@@ -54,6 +54,24 @@ code { font-family: var(--font-mono); font-size: 0.875em; }
   justify-content: space-between;
   height: 56px;
 }
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.site-logo img {
+  display: block;
+  border-radius: 4px;
+}
+.site-logo span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: .01em;
+}
+.site-logo:hover { text-decoration: none; opacity: 0.85; }
+
 .site-header nav {
   display: flex;
   align-items: center;
